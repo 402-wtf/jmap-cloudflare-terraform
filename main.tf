@@ -3,8 +3,8 @@ resource "cloudflare_pages_project" "ui_deploy" {
   name              = join("-", compact([var.resource_prefix, "jmap-ui"]))
   production_branch = "main"
   build_config {
-    build_command       = "npm run depend-install && npm run build"
-    destination_dir     = "out"
+    build_command       = "npx @cloudflare/next-on-pages@1"
+    destination_dir     = ".vercel/output/static"
     root_dir            = "packages/jmap-ui"
   }
   source {

@@ -23,6 +23,7 @@ resource "cloudflare_pages_project" "ui_deploy" {
   }
   deployment_configs {
     preview {
+      compatibility_flags = ["nodejs_compat"]
       environment_variables = {
         NODE_VERSION = 20
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ""
@@ -32,6 +33,7 @@ resource "cloudflare_pages_project" "ui_deploy" {
       }
     }
     production {
+      compatibility_flags = ["nodejs_compat"]
       environment_variables = {
         NODE_VERSION = 20
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ""

@@ -21,6 +21,26 @@ resource "cloudflare_pages_project" "ui_deploy" {
       preview_branch_excludes       = ["main", "prod"]
     }
   }
+  deployment_configs {
+    preview {
+      environment_variables = {
+        NODE_VERSION = 20
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ""
+      }
+      secrets = {
+        CLERK_SECRET_KEY = ""
+      }
+    }
+    production {
+      environment_variables = {
+        NODE_VERSION = 20
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ""
+      }
+      secrets = {
+        CLERK_SECRET_KEY = ""
+      }
+    }
+  }
 }
 
 resource "cloudflare_pages_domain" "ui_deploy" {

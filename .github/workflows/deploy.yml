@@ -32,7 +32,6 @@ jobs:
         id: validate
         uses: dflook/terraform-validate@v1
         with:
-          path: "azure/terraform/stacks/${{ matrix.stack }}"
           workspace: ${{ env.TF_WORKSPACE }}
       - name: 'Terraform Apply'
         id: apply

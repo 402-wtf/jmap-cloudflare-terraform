@@ -1,0 +1,48 @@
+---
+name: Terraform Apply
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  content: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  terraform:
+    name: 'Terraform Apply'
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_ACCOUNT_ID: ${{ secrets.TF_VAR_ACCOUNT_ID }}
+      TF_VAR_RESOURCE_PREFIX: ${{ secrets.TF_VAR_RESOURCE_PREFIX }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+      S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY }}
+      TF_WORKSPACE: prod
+      TF_IN_AUTOMATION: true
+      TF_INPUT: 0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: 'Terraform Validate'
+        id: validate
+        uses: dflook/terraform-validate@v1
+        with:
+          path: "azure/terraform/stacks/${{ matrix.stack }}"
+          workspace: ${{ env.TF_WORKSPACE }}
+      - name: 'Terraform Apply'
+        id: apply
+        uses: dflook/terraform-plan@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          backend_config:
+            - bucket=${{ env.S3_BUCKET }}
+            - endpoints='{ s3 = "${{ env.S3_ENDPOINT }}" }'
+            - access_key=${{ env.S3_ACCESS_KEY }}
+            - secret_key=${{ env.S3_SECRET_KEY }}

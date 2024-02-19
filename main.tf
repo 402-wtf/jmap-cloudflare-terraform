@@ -3,16 +3,16 @@ resource "cloudflare_pages_project" "ui_deploy" {
   name              = join("-", compact([var.resource_prefix, "jmap-ui"]))
   production_branch = "main"
   build_config {
-    build_command       = "npx @cloudflare/next-on-pages@1"
-    destination_dir     = ".vercel/output/static"
-    root_dir            = "packages/jmap-ui"
+    build_command   = "npx @cloudflare/next-on-pages@1"
+    destination_dir = ".vercel/output/static"
+    root_dir        = "packages/jmap-ui"
   }
   source {
     type = "github"
     config {
-      owner = "402-wtf"
-      repo_name = "jmap-cloudflare"
-      production_branch = "main"
+      owner                         = "402-wtf"
+      repo_name                     = "jmap-cloudflare"
+      production_branch             = "main"
       pr_comments_enabled           = true
       deployments_enabled           = true
       production_deployment_enabled = true
@@ -25,7 +25,7 @@ resource "cloudflare_pages_project" "ui_deploy" {
     preview {
       compatibility_flags = ["nodejs_compat"]
       environment_variables = {
-        NODE_VERSION = 20
+        NODE_VERSION                      = 20
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ""
       }
       secrets = {
@@ -35,7 +35,7 @@ resource "cloudflare_pages_project" "ui_deploy" {
     production {
       compatibility_flags = ["nodejs_compat"]
       environment_variables = {
-        NODE_VERSION = 20
+        NODE_VERSION                      = 20
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ""
       }
       secrets = {

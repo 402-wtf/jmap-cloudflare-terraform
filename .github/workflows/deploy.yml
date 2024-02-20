@@ -42,6 +42,6 @@ jobs:
           workspace: ${{ env.TF_WORKSPACE }}
           backend_config: |
             bucket=${{ env.S3_BUCKET }}
-            endpoints='{ s3 = \\"${{ env.S3_ENDPOINT }}\\" }'
+            endpoints={ s3 = "${{ env.S3_ENDPOINT }}" }
             access_key=${{ env.S3_ACCESS_KEY }}
             secret_key=${{ env.S3_SECRET_KEY }}

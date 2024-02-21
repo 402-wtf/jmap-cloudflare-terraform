@@ -10,6 +10,7 @@ terraform {
   backend "s3" {
     key    = "jmap-cloudflare/terraform.tfstate"
     region = "us-east-1"
+    endpoints = { s3 = "https://c32b369c8f2bebc2cf1b878b898405c3.r2.cloudflarestorage.com" }
 
     skip_credentials_validation = true
     skip_region_validation      = true

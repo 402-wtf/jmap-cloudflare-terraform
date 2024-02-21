@@ -14,6 +14,7 @@ jobs:
   terraform:
     name: 'Terraform Apply'
     runs-on: ubuntu-latest
+    environment: production
     env:
       TF_VAR_ACCOUNT_ID: ${{ secrets.TF_VAR_ACCOUNT_ID }}
       TF_VAR_RESOURCE_PREFIX: ${{ secrets.TF_VAR_RESOURCE_PREFIX }}
